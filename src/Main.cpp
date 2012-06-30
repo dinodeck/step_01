@@ -3,7 +3,6 @@
 #include <gl/gl.h>
 #include "SDL/SDL.h"
 
-
 void Main::OnEvent(SDL_Event* event)
 {
     switch(event->type)
@@ -20,16 +19,54 @@ void Main::OnEvent(SDL_Event* event)
                 printf("Stopped looping because escape pressed.\n");
                 mRunning = false;
             }
+            else if(event->key.keysym.sym == SDLK_F2)
+            {
+                printf("F2 pressed.\n");
+                mViewWidth = 1280;
+                mViewHeight = 720;
+                mName = "Change change";
+                ResetRenderWindow();
+            }
 
         } break;
     }
 }
 
+bool Main::ResetRenderWindow()
+{
+
+    SDL_WM_SetCaption(mName.c_str(), mName.c_str());
+
+    // SDL handles this surface memory, so it can be called multiple times without issue.
+    if((mSurface = SDL_SetVideoMode(mViewWidth, mViewHeight, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
+    {
+        printf("Error initializing graphics: %s\n", SDL_GetError());
+        return false;
+    }
+
+    SDL_WarpMouse(mViewWidth/2, mViewHeight/2);
+
+
+    glClearColor(0, 0, 0, 0);
+    glViewport(0, 0, mViewWidth, mViewHeight);
+     // Setups an orthographic view, should be handled by renderer.
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, mViewWidth, mViewHeight, 0, 1, -1);
+    glMatrixMode(GL_MODELVIEW);
+    glEnable(GL_TEXTURE_2D);
+    glLoadIdentity();
+    glClearColor(0.0, 0.0, 0.0, 1.0f);
+
+    // Enabled blending
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+
+    return true;
+}
+
 int Main::Execute()
 {
-	int viewWidth = 640;
-    int viewHeight = 360;
-
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
     	printf("SDL Failed to init");
@@ -55,33 +92,16 @@ int Main::Execute()
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
 
-    SDL_WM_SetCaption("1-Game Loop", "1-Game Loop");
-
-    if((mSurface = SDL_SetVideoMode(viewWidth, viewHeight, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
+    bool result = ResetRenderWindow();
+    if(!result)
     {
-        return false;
+        return -1;
     }
-
-    SDL_WarpMouse(viewWidth/2, viewHeight/2);
-
-    // Setups an orthographic view, should be handled by renderer.
-    glClearColor(0, 0, 0, 0);
-    glViewport(0, 0, viewWidth, viewHeight);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, viewWidth, viewHeight, 0, 1, -1);
-    glMatrixMode(GL_MODELVIEW);
-    glEnable(GL_TEXTURE_2D);
-    glLoadIdentity();
-    glClearColor(0.0, 0.0, 0.0, 1.0f);
-
-    // Enabled blending
-  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable( GL_BLEND );
 
     unsigned int thisTime = 0;
     unsigned int lastTime = 0;
-    unsigned int frames_per_second = 60;
+    unsigned int framesPerSecond = 60;
+    unsigned int millisecondsPerFrame = 1000 / framesPerSecond;
     unsigned int fpsTicks = 0;
 
     SDL_Event event;
@@ -103,12 +123,15 @@ int Main::Execute()
         OnUpdate();
 
 		fpsTicks = SDL_GetTicks() - fpsTicks;
-        if (fpsTicks < 1000 / frames_per_second)
+        if (fpsTicks < millisecondsPerFrame)
         {
-            SDL_Delay((1000 / frames_per_second) - fpsTicks);
+            SDL_Delay(millisecondsPerFrame - fpsTicks);
         }
     	SDL_GL_SwapBuffers();
     }
+
+    SDL_Quit();
+
 	return 0;
 }
 
@@ -120,6 +143,6 @@ void Main::OnUpdate()
 int main(int argc, char *argv[])
 {
 	Main main;
-	printf("Hello word!");
+	printf("Hello word!\n");
  	return main.Execute();
 }
