@@ -4,23 +4,21 @@
 
 struct SDL_Surface;
 union SDL_Event;
+class DancingSquid;
 
 class Main
 {
 private:
-	std::string		mName;
 	SDL_Surface*	mSurface;
-	double 			mDeltaTime;
 	bool 			mRunning;
-	int 			mViewWidth;
-    int 			mViewHeight;
+    DancingSquid*	mDancingSquid;
 
 	void OnEvent(SDL_Event* event);
-	void OnUpdate();
-	bool ResetRenderWindow();
+	bool ResetRenderWindow(unsigned int width, unsigned int height);
 public:
 	int Execute();
 	bool Reset();
-	Main() : mName("Dancing Squid"), mSurface(0), mDeltaTime(0), mRunning(true), mViewWidth(640), mViewHeight(360) {}
+	Main();
+	~Main();
 };
 #endif

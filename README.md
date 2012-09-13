@@ -1,4 +1,4 @@
-GameLoopSDL
+1-GameLoop
 ===========
 
-Simple GameLoop using OpenGL and SDL
+A simple GameLoop using OpenGL and SDL

@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <gl/gl.h>
 #include "SDL/SDL.h"
+#include "DancingSquid.h"
+
+ Main::Main() :
+    mSurface(0),
+    mRunning(true),
+    mDancingSquid(NULL)
+{
+    mDancingSquid = new DancingSquid("DancingSquid");
+}
+
+Main::~Main()
+{
+    delete mDancingSquid;
+}
 
 void Main::OnEvent(SDL_Event* event)
 {
@@ -22,46 +36,29 @@ void Main::OnEvent(SDL_Event* event)
             else if(event->key.keysym.sym == SDLK_F2)
             {
                 printf("F2 pressed.\n");
-                mViewWidth = 1280;
-                mViewHeight = 720;
-                mName = "Change change";
-                ResetRenderWindow();
+                mDancingSquid->SetName("Change Change");
+                ResetRenderWindow(1280, 720);
             }
 
         } break;
     }
 }
 
-bool Main::ResetRenderWindow()
+bool Main::ResetRenderWindow(unsigned int width, unsigned int height)
 {
-
-    SDL_WM_SetCaption(mName.c_str(), mName.c_str());
+    const char* name = mDancingSquid->Name().c_str();
+    SDL_WM_SetCaption(name, name);
 
     // SDL handles this surface memory, so it can be called multiple times without issue.
-    if((mSurface = SDL_SetVideoMode(mViewWidth, mViewHeight, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
+    if((mSurface = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL)) == NULL)
     {
         printf("Error initializing graphics: %s\n", SDL_GetError());
         return false;
     }
 
-    SDL_WarpMouse(mViewWidth/2, mViewHeight/2);
+    mDancingSquid->ResetRenderWindow(width, height);
 
-
-    glClearColor(0, 0, 0, 0);
-    glViewport(0, 0, mViewWidth, mViewHeight);
-     // Setups an orthographic view, should be handled by renderer.
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, mViewWidth, mViewHeight, 0, 1, -1);
-    glMatrixMode(GL_MODELVIEW);
-    glEnable(GL_TEXTURE_2D);
-    glLoadIdentity();
-    glClearColor(0.0, 0.0, 0.0, 1.0f);
-
-    // Enabled blending
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-
+    SDL_WarpMouse(width/2, height/2);
     return true;
 }
 
@@ -92,7 +89,11 @@ int Main::Execute()
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
 
-    bool result = ResetRenderWindow();
+    bool result = ResetRenderWindow
+                  (
+                      mDancingSquid->ViewWidth(),
+                      mDancingSquid->ViewHeight()
+                  );
     if(!result)
     {
         return -1;
@@ -110,7 +111,7 @@ int Main::Execute()
     {
         // Calculate delta time
         thisTime = SDL_GetTicks(); // returns in milliseconds
-        mDeltaTime = static_cast<double>((thisTime - lastTime) / 1000); // convert to seconds
+        double deltaTime = static_cast<double>((thisTime - lastTime) / 1000); // convert to seconds
         lastTime = thisTime;
 
         while(SDL_PollEvent(&event))
@@ -118,9 +119,7 @@ int Main::Execute()
             OnEvent(&event);
         }
 
-    	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        OnUpdate();
+        mDancingSquid->Update(deltaTime);
 
 		fpsTicks = SDL_GetTicks() - fpsTicks;
         if (fpsTicks < millisecondsPerFrame)
@@ -135,14 +134,8 @@ int Main::Execute()
 	return 0;
 }
 
-void Main::OnUpdate()
-{
-	// Game code goes here.
-}
-
 int main(int argc, char *argv[])
 {
 	Main main;
-	printf("Hello word!\n");
  	return main.Execute();
 }
