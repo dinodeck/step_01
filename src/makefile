@@ -9,7 +9,10 @@ EXECUTABLE=gameloop
 EXECUTABLE_CYGWIN=gameloop
 
 ifeq (${PLATFORM_DS},WINDOWS)
-	LDFLAGS+=-L/usr/local/lib -static-libstdc++ -lmingw32 -lopengl32 -lws2_32 -lwinmm 
+	CFLAGS+= -I/usr/include
+	CFLAGS+= `sdl-config --cflags`
+	LDFLAGS+= `sdl-config --libs`
+	LDFLAGS+=-L/usr/lib -static-libstdc++ -lmingw32 -lopengl32 -lws2_32 -lwinmm 
 endif
 
 ifeq (${PLATFORM_DS},MAC) 
