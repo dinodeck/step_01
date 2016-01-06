@@ -1,7 +1,7 @@
 #include "Main.h"
 #include <stdio.h>
 #ifdef __APPLE__
-#include <OpenGL/gl.h> 
+#include <OpenGL/gl.h>
 #else
 #include <gl/gl.h>
 #endif
