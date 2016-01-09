@@ -1,6 +1,6 @@
 
 #include "bigyama_android.h"
-#include "../../DancingSquid.h"
+#include "../../Dinodeck.h"
 #include <jni.h>
 #include <android/log.h>
 
@@ -11,27 +11,27 @@
 #include <stdlib.h>
 #include <math.h>
 
-DancingSquid gDancingSquid("Dancing Squid");
+Dinodeck gDinodeck("Dinodeck");
 
 
 /* External Java functions are implemented here.
 */
 
-JNIEXPORT void JNICALL Java_com_bigyama_dancingsquid_DSRenderer_nativeClear(
+JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeClear(
     JNIEnv*, jobject obj)
 {
     glClearColor(1, 0, 0, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_bigyama_dancingsquid_DSRenderer_nativeUpdate(
+JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeUpdate(
     JNIEnv*, jobject obj, float dt)
 {
-    gDancingSquid.Update(dt);
+    gDinodeck.Update(dt);
 }
 
-JNIEXPORT void JNICALL Java_com_bigyama_dancingsquid_DSRenderer_nativeResize(
+JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeResize(
     JNIEnv*, jobject obj, int width, int height, float dpiX, float dpiY)
 {
     // This should be cleverly and nearly passed on to some engine or something
-    gDancingSquid.ResetRenderWindow(width, height);
+    gDinodeck.ResetRenderWindow(width, height);
 }

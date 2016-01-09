@@ -3,10 +3,9 @@
 CC=g++
 CFLAGS=-c -Wall -Dmain=SDL_main
 LDFLAGS= -lSDLmain -lSDL
-SOURCES=DancingSquid.cpp Main.cpp
+SOURCES=Dinodeck.cpp Main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=gameloop
-EXECUTABLE_CYGWIN=gameloop
+EXECUTABLE=dinodeck
 
 ifeq (${PLATFORM_DS},WINDOWS)
 	CFLAGS+= -I/usr/include
@@ -26,7 +25,7 @@ default: mingw
 mingw: $(SOURCES) $(EXECUTABLE)
 
 clean:
-	rm *.o *.exe
+	rm *.o *.exe $(EXECUTABLE) 2> /dev/null || true
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) -o $@ $? $(LDFLAGS)

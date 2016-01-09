@@ -1,11 +1,11 @@
-#ifndef DANCINGSQUID_H
-#define DANCINGSQUID_H
+#ifndef DINODECK_H
+#define DINODECK_H
 #include <string>
 
-// Dancing Squid is the kernal of the engine and should have limited dependancies.
+// Dinodeck is the kernal of the engine and should have limited dependancies.
 // It assumes access to OpenGL
 
-class DancingSquid
+class Dinodeck
 {
 private:
     std::string mName; // name of the game / project
@@ -13,8 +13,8 @@ private:
     unsigned int mViewWidth;
     unsigned int mViewHeight;
 public:
-    DancingSquid(const std::string& name);
-    ~DancingSquid();
+    Dinodeck(const std::string& name);
+    ~Dinodeck();
     void Update(double deltaTime);
     const std::string& Name() const { return mName; }
     void SetName(const std::string& value) { mName = value; }

@@ -1,4 +1,4 @@
-package com.bigyama.dancingsquid;
+package com.bigyama.dinodeck;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import java.lang.System;
 
-// DancingSquid activity
-public class DSActivity extends Activity
+// Dinodeck activity
+public class DDActivity extends Activity
 {
-    private static DSGLSurfaceView mGLView = null;
+    private static DDGLSurfaceView mGLView = null;
     private Handler mUpdateTimeHandler = new Handler();
     private long mLastTimeCount;
     private float mDeltaTime;

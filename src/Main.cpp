@@ -6,19 +6,19 @@
 #include <gl/gl.h>
 #endif
 #include "SDL/SDL.h"
-#include "DancingSquid.h"
+#include "Dinodeck.h"
 
  Main::Main() :
     mSurface(0),
     mRunning(true),
-    mDancingSquid(NULL)
+    mDinodeck(NULL)
 {
-    mDancingSquid = new DancingSquid("DancingSquid");
+    mDinodeck = new Dinodeck("Dinodeck");
 }
 
 Main::~Main()
 {
-    delete mDancingSquid;
+    delete mDinodeck;
 }
 
 void Main::OnEvent(SDL_Event* event)
@@ -40,7 +40,7 @@ void Main::OnEvent(SDL_Event* event)
             else if(event->key.keysym.sym == SDLK_F2)
             {
                 printf("F2 pressed.\n");
-                mDancingSquid->SetName("Change Change");
+                mDinodeck->SetName("Change Change");
                 ResetRenderWindow(1280, 720);
             }
 
@@ -50,7 +50,7 @@ void Main::OnEvent(SDL_Event* event)
 
 bool Main::ResetRenderWindow(unsigned int width, unsigned int height)
 {
-    const char* name = mDancingSquid->Name().c_str();
+    const char* name = mDinodeck->Name().c_str();
     SDL_WM_SetCaption(name, name);
 
     // SDL handles this surface memory, so it can be called multiple times without issue.
@@ -60,7 +60,7 @@ bool Main::ResetRenderWindow(unsigned int width, unsigned int height)
         return false;
     }
 
-    mDancingSquid->ResetRenderWindow(width, height);
+    mDinodeck->ResetRenderWindow(width, height);
 
     SDL_WarpMouse(width/2, height/2);
     return true;
@@ -95,8 +95,8 @@ int Main::Execute()
 
     bool result = ResetRenderWindow
                   (
-                      mDancingSquid->ViewWidth(),
-                      mDancingSquid->ViewHeight()
+                      mDinodeck->ViewWidth(),
+                      mDinodeck->ViewHeight()
                   );
     if(!result)
     {
@@ -123,7 +123,7 @@ int Main::Execute()
             OnEvent(&event);
         }
 
-        mDancingSquid->Update(deltaTime);
+        mDinodeck->Update(deltaTime);
 
 		fpsTicks = SDL_GetTicks() - fpsTicks;
         if (fpsTicks < millisecondsPerFrame)

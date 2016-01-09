@@ -1,11 +1,11 @@
-#include "DancingSquid.h"
+#include "Dinodeck.h"
 #include <cstdio>
 
 #if ANDROID
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #elif __APPLE__
-#include <OpenGL/gl.h> 
+#include <OpenGL/gl.h>
 #define glOrthof glOrtho
 #else
 #include <gl/gl.h>
@@ -13,13 +13,13 @@
 #endif
 
 
-DancingSquid::DancingSquid(const std::string& name)
+Dinodeck::Dinodeck(const std::string& name)
     : mName(name), mViewWidth(640), mViewHeight(360)
 {
 
 }
 
-DancingSquid::~DancingSquid()
+Dinodeck::~Dinodeck()
 {
 
 }
@@ -27,12 +27,12 @@ DancingSquid::~DancingSquid()
 //
 // @deltaTime Number of seconds last frame took
 //              * Capped to 1/60 on Windows
-void DancingSquid::Update(double deltaTime)
+void Dinodeck::Update(double deltaTime)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void DancingSquid::ResetRenderWindow(unsigned int width, unsigned int height)
+void Dinodeck::ResetRenderWindow(unsigned int width, unsigned int height)
 {
     mViewWidth = width;
     mViewHeight = height;
