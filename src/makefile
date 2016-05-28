@@ -11,7 +11,9 @@ ifeq (${PLATFORM_DS},WINDOWS)
 	CFLAGS+= -I/usr/include
 	CFLAGS+= `sdl-config --cflags --static-libs`
 	# LDFLAGS+= `sdl-config --libs`
-	LDFLAGS+=-L/usr/lib -static-libstdc++ -lmingw32 -lopengl32 -lws2_32 -lwinmm
+	LDFLAGS:=-Wl,-Bstatic -L/usr/local/lib -lmingw32 $(LDFLAGS)
+	LDFLAGS+=-L/usr/lib -static-libstdc++ -lopengl32 -lws2_32 -lwinmm
+	LDFLAGS+=-liconv -lm -luser32 -lgdi32 -lwinmm -static-libgcc -static-libstdc++
 endif
 
 ifeq (${PLATFORM_DS},MAC)
