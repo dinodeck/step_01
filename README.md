@@ -8,4 +8,10 @@ This a minimal, instructional project showing how to start a game project. The D
 
 ## Building for Windows
 
+![Step 01 running on windows](windows.png)
+
 I downloaded mingw, navigated to /etc and renamed fstab.sample to fstab. Then downloaded a 32bit version of sdl. Ran make on the root of the SDL code, checked the examples by entering /tests and running ./configure, make. Then it should be possible to build.
+
+## Building on Mac
+
+![Step 01 running on mac](mac.png)
