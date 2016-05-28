@@ -1,4 +1,4 @@
-package com.bigyama.dinodeck;
+package com.dinodeck.dinodeck;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -108,7 +108,7 @@ public class DDActivity extends Activity
 
     static
     {
-        System.loadLibrary("bigyama");
+        System.loadLibrary("dinodeck");
     }
 }
 

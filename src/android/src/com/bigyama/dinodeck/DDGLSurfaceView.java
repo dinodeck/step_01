@@ -1,4 +1,4 @@
-package com.bigyama.dinodeck;
+package com.dinodeck.dinodeck;
 
 import android.app.Activity;
 import android.content.Context;

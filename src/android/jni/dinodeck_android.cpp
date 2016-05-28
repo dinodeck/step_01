@@ -1,5 +1,5 @@
 
-#include "bigyama_android.h"
+#include "dinodeck_android.h"
 #include "../../Dinodeck.h"
 #include <jni.h>
 #include <android/log.h>
@@ -17,19 +17,19 @@ Dinodeck gDinodeck("Dinodeck");
 /* External Java functions are implemented here.
 */
 
-JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeClear(
+JNIEXPORT void JNICALL Java_com_dinodeck_dinodeck_DDRenderer_nativeClear(
     JNIEnv*, jobject obj)
 {
     glClearColor(1, 0, 0, 0);
 }
 
-JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeUpdate(
+JNIEXPORT void JNICALL Java_com_dinodeck_dinodeck_DDRenderer_nativeUpdate(
     JNIEnv*, jobject obj, float dt)
 {
     gDinodeck.Update(dt);
 }
 
-JNIEXPORT void JNICALL Java_com_bigyama_dinodeck_DDRenderer_nativeResize(
+JNIEXPORT void JNICALL Java_com_dinodeck_dinodeck_DDRenderer_nativeResize(
     JNIEnv*, jobject obj, int width, int height, float dpiX, float dpiY)
 {
     // This should be cleverly and nearly passed on to some engine or something
