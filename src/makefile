@@ -15,8 +15,9 @@ ifeq (${PLATFORM_DS},WINDOWS)
 endif
 
 ifeq (${PLATFORM_DS},MAC)
-	CFLAGS+= -I/opt/local/include
-	LDFLAGS+= `sdl-config --cflags --static-libs` -BStatic
+	SDLLIBS= -Bstatic `sdl-config --static-libs`
+
+	LDFLAGS+= $(SDLLIBS)
 	LDFLAGS+= -L/opt/local/lib -framework OpenGL -framework Cocoa
 endif
 
@@ -25,7 +26,7 @@ default: mingw
 mingw: $(SOURCES) $(EXECUTABLE)
 
 clean:
-	rm *.o *.exe $(EXECUTABLE) 2> /dev/null || true
+	rm *.o $(EXECUTABLE) 2> /dev/null || true
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) -o $@ $? $(LDFLAGS)

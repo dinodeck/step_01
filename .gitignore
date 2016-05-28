@@ -10,3 +10,10 @@
 *.lai
 *.la
 *.a
+
+# Output and Test Files
+src/dinodeck
+src/dinodeck.exe
+src/restore.sh
+src/static_test.sh
+src/test.sh
