@@ -14,7 +14,7 @@ if [ -e "/opt/local/lib/libSDL-1.2.0.dylib" ]
 then
   mv /opt/local/lib/libSDL-1.2.0.dylib /opt/local/lib/libSDL-1.2.0.dylib_
 fi
-make PLATFORM_DS=MAC
+make PLATFORM_DD=MAC
 
 if [ -e "/opt/local/lib/libSDL-1.2.0.dylib_" ]
 then

@@ -7,7 +7,7 @@ SOURCES=Dinodeck.cpp Main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=dinodeck
 
-ifeq (${PLATFORM_DS},WINDOWS)
+ifeq (${PLATFORM_DD},WINDOWS)
 	CFLAGS+= -I/usr/include
 	CFLAGS+= `sdl-config --cflags --static-libs`
 	# LDFLAGS+= `sdl-config --libs`
@@ -16,7 +16,7 @@ ifeq (${PLATFORM_DS},WINDOWS)
 	LDFLAGS+=-liconv -lm -luser32 -lgdi32 -lwinmm -static-libgcc -static-libstdc++
 endif
 
-ifeq (${PLATFORM_DS},MAC)
+ifeq (${PLATFORM_DD},MAC)
 	SDLLIBS= -Bstatic `sdl-config --static-libs`
 
 	LDFLAGS+= $(SDLLIBS)
