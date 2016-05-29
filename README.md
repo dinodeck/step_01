@@ -4,7 +4,7 @@ The first milestone in creating the [Dinodeck](http://dinodeck.com/) engine.
 A project that can open a widow and setup an OpenGL context on both Windows and Mac.
 This project uses SDL and OpenGL.
 
-This a minimal, instructional project showing how to start a game project. The Dinodeck engine itself started with this as it's first milestone.
+This a minimal, instructional project showing how to start make a game engine. The Dinodeck engine itself started with this as it's first milestone.
 
 ## Building for Windows
 
@@ -15,3 +15,7 @@ I downloaded mingw, navigated to /etc and renamed fstab.sample to fstab. Then do
 ## Building on Mac
 
 ![Step 01 running on mac](mac.png)
+
+## Building on Android
+
+This requires quite a lot of setup.
